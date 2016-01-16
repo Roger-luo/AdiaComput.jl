@@ -43,15 +43,15 @@ $$
 
 then the truth table of this cost function is
 
-- bits value|truth value
-- 0   0   0|0
-- 0   0   1|1
-- 0   1   0|1
-- 0   1   1|0
-- 1   0   0|1
-- 1   0   1|0
-- 1   1   0|0
-- 1   1   1|0
+|| bits value||truth value
+|| 0   0   0 || 0
+|| 0   0   1 || 1
+|| 0   1   0 || 1
+|| 0   1   1 || 0
+|| 1   0   0 || 1
+|| 1   0   1 || 0
+|| 1   1   0 || 0
+|| 1   1   1 || 0
 
 so the truth table construct as following,the `truthvalue` contains the truth value as a number
 and the `bitID` contains the ID of bits in this truth table
