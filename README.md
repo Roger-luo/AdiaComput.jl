@@ -34,6 +34,7 @@ TruthTable(truthvalue,bitID)
 ```
 
 use `TruthTable` to construct the cost function,for example a cost function define below
+
 $$
 \begin{aligned}
 &h_c(z_1,z_2,z_3) = 1\quad \text{if there is a 1 among (z_1,z_2,z_3)}\\
@@ -85,4 +86,4 @@ State2TruthTable(state,3)
 
 PRs are welcome!
 
-by [Roger Luo](rogerluo.cc)
+by [Roger Luo](http://rogerluo.cc)
