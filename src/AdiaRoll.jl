@@ -17,6 +17,19 @@ function next_timestep(
     return expm(-im*dt*full(Hamiltonian(curstep*dt/evotime,bHamiltonian,pHamiltonian)))*state
 end
 
+
+"""
+```julia
+function evolution(
+    evotime::Real,
+    expr::LogicExpr,
+    bitnum::Int,
+    dt=1
+    )
+```
+evolution evolutes the adiabatic system,and 
+
+"""
 function evolution(
     evotime::Real,
     expr::LogicExpr,
