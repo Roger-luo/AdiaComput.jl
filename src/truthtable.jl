@@ -7,6 +7,7 @@ typealias LogicExpr AbstractVector{TruthTable}
 
 # function ClauseGenerator()
 
+#return a bin string of given length
 function bin(int::Integer,n::Integer)
     @assert bin(int)<=n
 
@@ -17,8 +18,7 @@ function bin(int::Integer,n::Integer)
     return res
 end
 
-# @show bin(2,4)
-
+# check the value of an assignment of bits
 function TruthTableValue(BitsValue::Integer,truth_table::Integer,tablelen::Int64)
     TruthValue = bin(truth_table,2^tablelen)
     # @show BitsValue
@@ -26,6 +26,7 @@ function TruthTableValue(BitsValue::Integer,truth_table::Integer,tablelen::Int64
     return parse(Int,TruthValue[BitsValue+1])
 end
 
+#expand a truth table
 function TruthTableExpand(truth_table::Integer,bitID::AbstractVector{Integer},bitnum::Integer)
     # @assert bitnum<length(bin(truth_table))
     @assert length(bitID)<=bitnum
@@ -42,6 +43,17 @@ function TruthTableExpand(truth_table::Integer,bitID::AbstractVector{Integer},bi
     return res
 end
 
+"""
+```
+State2TruthTable(state::AbstractVector,bitnum::Integer)
+```
+transfer the qubit state vector to result
+
+Parameters
+---
+- `state::AbstractVector` a state vector
+- `bitnum::Integer` number of qubits
+"""
 function State2TruthTable(state::AbstractVector,bitnum::Integer)
     res = abs(real(state))
     res = convert(Array{Int64,1},round(res))

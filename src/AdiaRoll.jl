@@ -6,6 +6,8 @@ include("truthtable.jl")
 include("matrix.jl")
 include("Hamiltonian.jl")
 
+
+#adiabatic evolution for one time step,a simple Euler form is used at present
 function next_timestep(
     state::AbstractVector,
     curstep::Int64,
@@ -18,22 +20,29 @@ function next_timestep(
 end
 
 
-"""
+doc"""
 ```julia
-function evolution(
-    evotime::Real,
-    expr::LogicExpr,
-    bitnum::Int,
-    dt=1
-    )
+function evolution(evotime::Real,expr::LogicExpr,bitnum::Int;dt=1)->eigenvalue,state,success_probablity
 ```
-evolution evolutes the adiabatic system,and 
+`evolution` evolutes the adiabatic system
 
+Parameters
+---
+- `evotime::Real` evolution time
+- `expr::LogicExpr` LogicExpression,a collection of TruthTable
+- `bitnum::Int` number of qubits
+- `dt` time step,defaut is 1
+
+Returns
+---
+- eigenvalue
+- state
+- success probablity defined as $|<\phi|\psi(T)>|^2$,where $\phi$ is the ground state of problem Hamiltonian,$\psi$ is the final state of the evolution
 """
 function evolution(
     evotime::Real,
     expr::LogicExpr,
-    bitnum::Int,
+    bitnum::Int;
     dt=1
     )
     state = [1/sqrt(2^bitnum) for i=1:2^bitnum]
