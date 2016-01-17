@@ -4,7 +4,7 @@ This an Adiabatic Computation Simulator for quantum computation
 
 to calculate a given instance,a truth table of the cost function is needed.
 
-to use this package,use `Pkg.clone` to clone the repo.and
+to use this package,use `Pkg.clone(https://github.com/Roger-luo/AdiaRoll.jl.git)` to clone the repo.and
 ```julia
 using AdiaRoll
 ```
