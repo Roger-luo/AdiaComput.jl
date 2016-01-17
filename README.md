@@ -35,7 +35,7 @@ TruthTable(truthvalue,bitID)
 
 use `TruthTable` to construct the cost function,for example a cost function define below
 
-![](https://latex.codecogs.com/gif.latex?\begin{aligned}&space;&h_c(z_1,z_2,z_3)&space;=&space;1\quad&space;\text{if&space;there&space;is&space;a&space;1&space;among&space;}(z_1,z_2,z_3)\\&space;&h_c(z_1,z_2,z_3)&space;=&space;0\quad&space;\text{if&space;not}&space;\end{aligned})
+<img src="http://www.sciweavers.org/tex2img.php?eq=%5Cbegin%7Baligned%7D%0A%26h_c%28z_1%2Cz_2%2Cz_3%29%20%3D%201%5Cquad%20%5Ctext%7Bif%20there%20is%20a%201%20among%20%7D%20%28z_1%2Cz_2%2Cz_3%29%5C%5C%0A%26h_c%28z_1%2Cz_2%2Cz_3%29%20%3D%200%5Cquad%20%5Ctext%7Bif%20not%7D%0A%5Cend%7Baligned%7D&bc=White&fc=Black&im=png&fs=12&ff=arev&edit=0" align="center" border="0" alt="\begin{aligned}&h_c(z_1,z_2,z_3) = 1\quad \text{if there is a 1 among } (z_1,z_2,z_3)\\&h_c(z_1,z_2,z_3) = 0\quad \text{if not}\end{aligned}" width="417" height="43" />
 
 then the truth table of this cost function is
 
