@@ -35,14 +35,7 @@ TruthTable(truthvalue,bitID)
 
 use `TruthTable` to construct the cost function,for example a cost function define below
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default">
-$$
-\begin{aligned}
-&h_c(z_1,z_2,z_3) = 1\quad \text{if there is a 1 among (z_1,z_2,z_3)}\\
-&h_c(z_1,z_2,z_3) = 0\quad \text{if not}
-\end{aligned}
-$$
-</script>
+<img src="https://latex.codecogs.com/gif.latex?\begin{aligned}&space;&h_c(z_1,z_2,z_3)&space;=&space;1\quad&space;\text{if&space;there&space;is&space;a&space;1&space;among&space;}(z_1,z_2,z_3)\\&space;&h_c(z_1,z_2,z_3)&space;=&space;0\quad&space;\text{if&space;not}&space;\end{aligned}" title="\begin{aligned} &h_c(z_1,z_2,z_3) = 1\quad \text{if there is a 1 among }(z_1,z_2,z_3)\\ &h_c(z_1,z_2,z_3) = 0\quad \text{if not} \end{aligned}" />
 
 then the truth table of this cost function is
 
