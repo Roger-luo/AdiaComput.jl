@@ -313,4 +313,6 @@ $$
 
 which have mean energies either higher (for outcome |1\rangle) or lower (for outcome |0\rangle) than that of the initial state $|\psi_{in}\rangle$
 
-# structure of the simulator
+# About the simulator
+
+Check the [README.md](README.md) file
