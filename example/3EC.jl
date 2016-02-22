@@ -1,6 +1,5 @@
 using AdiaRoll
 using PyPlot
-import .Docs: keywords
 
 blas_set_num_threads(4)
 # eigen,state = evolution(1e3,[TruthTable(0b10,[1])],1)

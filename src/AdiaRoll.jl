@@ -16,6 +16,7 @@ function next_timestep(
     evotime::Real,
     dt=1e-2
     )
+    @show typeof(-im*dt*full(Hamiltonian(curstep*dt/evotime,bHamiltonian,pHamiltonian)))
     return expm(-im*dt*full(Hamiltonian(curstep*dt/evotime,bHamiltonian,pHamiltonian)))*state
 end
 

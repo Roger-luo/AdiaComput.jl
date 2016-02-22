@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>Adiabatic Simulator</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Adiabatic Simulator</h1>
+    <h3 class="date"></h3>
+</section>
+
+<section id="satisfiability-problem" class="slide level1">
+<h1>satisfiability problem</h1>
+<p>An n-bit instance of satisfiability is a formula <br /><span class="math"><em>C</em><sub>1</sub> ∧ <em>C</em><sub>2</sub> ∧ … ∧ <em>C</em><sub><em>M</em></sub></span><br /></p>
+<p>where each clause C a is True or False depending on the values of some subset of the bits. For a single clause, involving only a few bits, it is easy to imagine constructing a quantum device that evolves to a state that encodes the satisfying assignments of the clause. The real difficulty, of course, lies in constructing a device that produces an assignment that satisfies all M clauses.</p>
+<p>Many computationally interesting problems can be recast into an equivalent problem of finding a variable assignment that minimizes an “energy” function. As a specific example, consider 3-SAT. An n-bit instance of 3-SAT is a Boolean formula,, that is specified by a collection of Boolean clauses, each of which involves (at most) 3 of the n bits. Each bit z i can take the value 0 or 1 and the i label runs from 1 to n. Clause C is associated with the 3 bits labeled <span class="math"><em>i</em><sub><em>C</em></sub></span> , <span class="math"><em>j</em><sub><em>C</em></sub></span> , and <span class="math"><em>k</em><sub><em>C</em></sub></span> . For each clause C we define an energy function</p>
+<p><br /><span class="math">$$
+\begin{cases}
+0,\quad  \text{if(z_{iC},z_{jC},z_{kC}) satisfies clause C}\\
+1,\quad  \text{if(z_{iC},z_{jC},z_{kC}) violates clause C}
+\end{cases}
+$$</span><br /></p>
+<p>We then define the total energy h as the sum of the individual <span class="math"><em>h</em><sub><em>C</em></sub></span></p>
+<p><br /><span class="math"><em>h</em> = ∑<sub><em>C</em></sub><em>h</em><sub><em>C</em></sub></span><br /></p>
+</section>
+<section id="adiabatic-theorem" class="slide level1">
+<h1>Adiabatic Theorem</h1>
+<p>A quantum system evolves according to the Schrödinger equation <br /><span class="math">$$
+i\frac{d}{dt}|\psi(t)\rangle = H(t)|\psi(t)\rangle
+$$</span><br /></p>
+<p>The adiabatic theorem tells us how to follow this evolution in the case that H(t) is slowly varying. Consider a smooth one-parameter family of Hamiltonians <span class="math">$\hat{H(s)}$</span>,<span class="math">0 ≤ <em>s</em> ≤ 1</span>,and take</p>
+<p><br /><span class="math">$$
+H(t) = \hat{H(t/T)}
+$$</span><br /></p>
+<p>define the instantaneous eigenstates and eigenvalues of <span class="math">$\hat{H(s)}$</span> by</p>
+<p><br /><span class="math"><em>H</em>(<em>s</em>)|<em>l</em>; <em>s</em>⟩ = <em>E</em><sub><em>l</em></sub>(<em>s</em>)|<em>l</em>; <em>s</em>⟩</span><br /></p>
+<p>with <br /><span class="math"><em>E</em><sub>0</sub>(<em>s</em>) ≤ <em>E</em><sub>1</sub>(<em>s</em>) ≤ … ≤ <em>E</em><sub><em>N</em> − 1</sub>(<em>s</em>)</span><br /></p>
+<p>where N is the dimension of the Hilbert space. Suppose <span class="math">|<em>ψ</em>(0)⟩</span> is the ground state of <span class="math">$\hat{H(0)}$</span>, that is</p>
+<p><br /><span class="math">|<em>ψ</em>(0)⟩ = |<em>l</em> = 0; <em>s</em> = 0⟩</span><br /></p>
+<p>according to the adiabatic theorem, if the gap between the two lowest levels, <span class="math"><em>E</em><sub>1</sub>(<em>s</em>) − <em>E</em><sub>0</sub>(<em>s</em>)</span>, is strictly greater than zero for all <span class="math">0 ≤ <em>s</em> ≤ 1</span>,then</p>
+<p><br /><span class="math">lim<sub><em>T</em> → ∞</sub>|⟨<em>l</em> = 0; <em>s</em> = 1|<em>ψ</em>(<em>T</em>)⟩| = 1</span><br /></p>
+<p>This means that the existence of a nonzero gap guarantees that <span class="math">|<em>ψ</em>(<em>t</em>)⟩</span> obeying remains very close to the instantaneous ground state of <span class="math"><em>H</em>(<em>t</em>)</span> of the form for all t from 0 to T if is big enough. Let us define the minimum gap by</p>
+<p><br /><span class="math"><em>g</em><sub><em>m</em><em>i</em><em>n</em></sub> = min<sub>0 ≤ <em>s</em> ≤ 1</sub>(<em>E</em><sub>1</sub>(<em>s</em>) − <em>E</em><sub>0</sub>(<em>s</em>))</span><br /></p>
+<p>A closer look at the adiabatic theorem tells us that taking <br /><span class="math">$$
+T&gt;\frac{\epsilon}{g^2_{min}}
+$$</span><br /></p>
+<p>where <br /><span class="math">$$
+\epsilon = \max_{0\leq s\leq 1}|\langle l=1;s|\frac{d\hat{H}}{ds}|l=0;s\rangle |
+$$</span><br /></p>
+<p>can make</p>
+<p><br /><span class="math">|⟨<em>l</em> = 0; <em>s</em> = 1|<em>ψ</em>(<em>T</em>)⟩|</span><br /></p>
+<p>arbitrarily close to 1.</p>
+</section>
+<section id="problem-hamiltonian-h_p" class="slide level1">
+<h1>Problem Hamiltonian <span class="math"><em>H</em><sub><em>P</em></sub></span></h1>
+<p>If we go from classical to quantum computation we replace the bit <span class="math"><em>z</em><sub><em>i</em></sub></span> by a spin-<span class="math">$\frac{1}{2}$</span> qubit labeled by <span class="math">|<em>z</em><sub><em>i</em></sub>⟩</span> where <span class="math"><em>z</em><sub><em>i</em></sub> = 0, 1</span>,The states |z_iare eigenstates of the z component of the i-th spin</p>
+<p><br /><span class="math">$$
+|0\rangle = \begin{pmatrix}
+1\\
+0
+\end{pmatrix}
+\quad and \quad 
+|1\rangle = \begin{pmatrix}
+0\\
+1
+\end{pmatrix}
+$$</span><br /></p>
+<p>so</p>
+<p><br /><span class="math"><em>H</em><sub><em>P</em>, <em>C</em></sub>(|<em>z</em><sub>1</sub>⟩|<em>z</em><sub>2</sub>⟩…|<em>z</em><sub><em>n</em></sub>⟩) = <em>h</em><sub><em>C</em></sub>(<em>z</em><sub><em>i</em><em>C</em></sub>, <em>z</em><sub><em>j</em><em>C</em></sub>, <em>z</em><sub><em>k</em><em>C</em></sub>)|<em>z</em><sub>1</sub>⟩|<em>z</em><sub>2</sub>⟩…|<em>z</em><sub><em>n</em></sub>⟩</span><br /></p>
+<p>The Hamiltonian associated with all of the clauses, which we call <span class="math"><em>H</em><sub><em>P</em></sub></span></p>
+<p><br /><span class="math"><em>H</em><sub><em>P</em></sub> = ∑<sub><em>C</em></sub><em>H</em><sub><em>P</em>, <em>C</em></sub></span><br /></p>
+</section>
+<section id="the-initial-hamiltonian-h_b" class="slide level1">
+<h1>The Initial Hamiltonian <span class="math"><em>H</em><sub><em>B</em></sub></span></h1>
+<p>For a given problem, specifying <span class="math"><em>H</em><sub><em>P</em></sub></span> is straightforward but finding its ground state may be difficult. We now consider an n-bit Hamiltonian <span class="math"><em>H</em><sub><em>B</em></sub></span> that is also straightforward to construct but whose ground state is simple to find. Let <span class="math"><em>H</em><sub><em>B</em></sub><sup>(<em>i</em>)</sup></span> be the 1-bit Hamiltonian acting on the i-th bit</p>
+$$ H_B^{(i)} = (1-_{x}^{(i)})with_x^{(i)}=
+
+<p>so <br /><span class="math"><em>H</em><sub><em>B</em></sub><sup>(<em>i</em>)</sup>|<em>x</em><sub><em>i</em></sub> = <em>x</em>⟩ = <em>x</em>|<em>x</em><sub><em>i</em></sub> = <em>x</em>⟩</span><br /></p>
+<p>where</p>
+<p><br /><span class="math">$$
+|x_i=0\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\1\end{pmatrix} and |x_i=1\rangle = \frac{1}{\sqrt{2}}\begin{pmatrix}1\\-1\end{pmatrix}
+$$</span><br /></p>
+<p>Continuing to take 3-SAT as our working example, clause C is associated with the bits <span class="math"><em>i</em><sub><em>C</em></sub>, <em>j</em><sub><em>C</em></sub>, </span> and <span class="math"><em>k</em><sub><em>C</em></sub></span>. Now define <br /><span class="math"><em>H</em><sub><em>B</em>, <em>C</em></sub> = <em>H</em><sub><em>B</em></sub><sup>(<em>i</em><sub><em>C</em></sub>)</sup> + <em>H</em><sub><em>B</em></sub><sup>(<em>j</em><sub><em>C</em></sub>)</sup> + <em>H</em><sub><em>B</em></sub><sup>(<em>k</em><sub><em>C</em></sub>)</sup></span><br /></p>
+<p>and</p>
+<p><br /><span class="math"><em>H</em><sub><em>B</em></sub> = ∑<sub><em>C</em></sub><em>H</em><sub><em>B</em>, <em>C</em></sub></span><br /></p>
+</section>
+<section id="adiabatic-evolution" class="slide level1">
+<h1>Adiabatic Evolution</h1>
+<p>We will now use adiabatic evolution to go from the known ground state of <span class="math"><em>H</em><sub><em>B</em></sub></span> to the unknown ground state of <span class="math"><em>H</em><sub><em>P</em></sub></span>. Assume for now that the ground state of <span class="math"><em>H</em><sub><em>P</em></sub></span> is unique. Consider</p>
+<p><br /><span class="math"><em>H</em>(<em>t</em>) = (1 − <em>t</em>/<em>T</em>)<em>H</em><sub><em>B</em></sub> + (<em>t</em>/<em>T</em>)<em>H</em><sub><em>P</em></sub></span><br /></p>
+<p>so from <br /><span class="math">$$
+\hat{H(s)} = (1-s) H_B + s H_P
+$$</span><br /></p>
+<p>Prepare the system so that it begins at t=0 in ground state of <span class="math"><em>H</em>(0) = <em>H</em><sub><em>B</em></sub></span> According to the adiabatic theorem, if <span class="math"><em>g</em><sub><em>m</em><em>i</em><em>n</em></sub></span> is not zero and the system evolves according to, then for T big enough <span class="math">|<em>ψ</em>(<em>T</em>)⟩</span> will be very close to the ground state of <span class="math"><em>H</em><sub><em>P</em></sub></span>, that is, the solution to the computational problem.</p>
+<p>Using the explicit form of and we see that <span class="math"><em>H</em>(<em>t</em>)</span> and <span class="math">$\hat{H(t)}$</span> are sums of individual terms associated with each clause. For each clause C let</p>
+<p><br /><span class="math"><em>H</em><sub><em>C</em></sub>(<em>t</em>) = (1 − <em>t</em>/<em>T</em>)<em>H</em><sub><em>B</em>, <em>C</em></sub> + (<em>t</em>/<em>T</em>)<em>H</em><sub><em>P</em>, <em>C</em></sub></span><br /></p>
+<p>and accordingly <br /><span class="math">$$
+\hat{H_C(s)} = (1-s)H_{B,C} + s H_{P,C}
+$$</span><br /></p>
+<p>Then we have <br /><span class="math"><em>H</em>(<em>t</em>) = ∑<sub><em>C</em></sub> = <em>H</em><sub><em>C</em></sub>(<em>t</em>)</span><br /></p>
+<p>and <br /><span class="math">$$
+\hat{H}(s) = \sum_C \hat{H}_C(s)
+$$</span><br /></p>
+<p>This gives the explicit form of H(t) described in the Introduction as a sum of Hamiltonians associated with individual clauses.</p>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'black', // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>
