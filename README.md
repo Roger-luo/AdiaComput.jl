@@ -1,5 +1,7 @@
 # Adiabatic Computation Simulator
 
+**This Package has been desperated and all the features can be found in [QuCmp.jl](https://github.com/JuliaQuantum/QuCmp)**
+
 This an Adiabatic Computation Simulator for quantum computation
 
 to calculate a given instance,a truth table of the cost function is needed.
