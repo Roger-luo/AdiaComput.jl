@@ -1,5 +1,7 @@
 module AdiaComput
 
-# package code goes here
+include("Base.jl")
+include("Hamiltonian.jl")
+include("Operator.jl")
 
 end # module
