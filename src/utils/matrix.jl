@@ -6,7 +6,7 @@ export diagexp
 rt = CUDArt.CUDArt_gen
 
 function diagexp(A::CudaArray{Complex64})
-    md = CuModule("$dir/src/utils/cuda/cuMatrix.ptx", false)
+    md = CuModule("$dir/src/utils/cuMatrix.ptx", false)
     diagexp = CuFunction(md, "diagexp_cf")
     nsm = attribute(device(), rt.cudaDevAttrMultiProcessorCount)
     mul = min(32, ceil(Int, length(A)/(256*nsm)))
@@ -16,7 +16,7 @@ function diagexp(A::CudaArray{Complex64})
 end
 
 function diagexp(A::CudaArray{Complex128};devlist=[0])
-    md = CuModule("$dir/src/utils/cuda/cuMatrix.ptx", false)
+    md = CuModule("$dir/src/utils/cuMatrix.ptx", false)
     diagexp = CuFunction(md, "diagexp_df")
     nsm = attribute(device(), rt.cudaDevAttrMultiProcessorCount)
     mul = min(32, ceil(Int, length(A)/(256*nsm)))

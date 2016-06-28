@@ -11,7 +11,7 @@ function realtimeop!(Hs::AdiaComputer)
 end
 
 function next_timestep!(Hs::AdiaComputer;evopercentage::Real=1/3,nev=6)
-    @assert (0<=Hs.location+evopercentage)&&( Hs.location+evopercentage-1<0.1) "evolutoin percentage out of bounds(should be in [0,1])"
+    @assert 0<=Hs.location+evopercentage<=1.1 "evolutoin percentage out of bounds(should be in [0,1])"
 
     const evotime = Hs.maxtime
     const dt      = Hs.dt
