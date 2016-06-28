@@ -26,7 +26,7 @@ type AdiaComputer
     # variable for current state
     ###########################################
     location::Real          # time location
-    state::Union{AbstractVector,AbstractCudaArray}
+    state::AbstractVector
     # eigens::AbstractVecOrMat
 
     ###########################################
@@ -65,20 +65,6 @@ type AdiaComputer
         location = 0.0
 
         # options
-
-        if GPU
-            InsertDiagZero!(HB)
-            InsertDiagZero!(HP)
-
-            HB = CudaSparseMatrixCSR(HB)
-            HP = CudaSparseMatrixCSR(HP)
-            global expH = CudaArray(zeros(Complex128,2^n))
-            P = convert(Array{Complex128,2},P)
-            invP = convert(Array{Complex128,2},invP)
-            P  = CudaSparseMatrixCSR(sparse(P))
-            invP = CudaSparseMatrixCSR(sparse(invP))
-            state = CudaArray(state)
-        end
         new(HB,HP,P,invP,maxtime,n,dt,location,state,prob,GPU)
     end
 end
@@ -89,9 +75,6 @@ end
 
 function reset!(Hs::AdiaComputer)
     Hs.state = convert(Array{Complex128,1},[1/sqrt(2^Hs.n) for i=1:2^Hs.n])
-    if Hs.GPU
-        Hs.state = CudaArray(Hs.state)
-    end
     Hs.location = 0.0
     Hs.prob = 1
 end

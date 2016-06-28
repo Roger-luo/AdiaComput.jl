@@ -56,13 +56,8 @@ end
 
 function CoolingPara(Hs::AdiaComputer)
     H = Hamiltonian(Hs)
-    if typeof(H) <:CudaSparseMatrix
-        maxEigen = eigs(to_host(Hamiltonian(Hs));nev=1,which=:LR)[1][1]|>real
-        minEigen = eigs(to_host(Hamiltonian(Hs));nev=1,which=:SR)[1][1]|>real
-    else
-        maxEigen = eigs(Hamiltonian(Hs);nev=1,which=:LR)[1][1]|>real
-        minEigen = eigs(Hamiltonian(Hs);nev=1,which=:SR)[1][1]|>real
-    end
+    maxEigen = eigs(Hamiltonian(Hs);nev=1,which=:LR)[1][1]|>real
+    minEigen = eigs(Hamiltonian(Hs);nev=1,which=:SR)[1][1]|>real
 
     gamma = (maxEigen+minEigen)/(maxEigen-minEigen) * pi/2 * 0.1
 
