@@ -10,7 +10,7 @@ function eigenvector(index::Integer,n::Integer)
     return res
 end
 
-type AdiaComputer
+type AdiaComputer <: QuComput
     ###########################################
     #  Eternal
     ###########################################
