@@ -48,11 +48,14 @@ function cooling!(
     gamma,t = CoolingPara(Hs)
 
     while count<n
+        @show count
         daemon!(Hs,gamma,t)
         count += 1
     end
     return Hs
 end
+
+# function cost_func(t,gamma)
 
 function CoolingPara(Hs::AdiaComputer)
     H = Hamiltonian(Hs)
