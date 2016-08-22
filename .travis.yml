@@ -2,13 +2,18 @@
 language: julia
 os:
   - linux
-  - osx
+  # - osx
 julia:
   - release
   - nightly
 notifications:
   email: false
+
+ sudo: false
+ addons:
+     apt_packages:
+         - gfortran
 # uncomment the following lines to override the default test script
-#script:
-#  - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-#  - julia -e 'Pkg.clone(pwd()); Pkg.build("AdiaComput"); Pkg.test("AdiaComput"; coverage=true)'
+script:
+ - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+ - julia -e 'Pkg.clone(pwd());Pkg.clone("https://github.com/Roger-luo/QuComputStates.jl"); Pkg.clone("https://github.com/JuliaQuantum/QuDynamics.jl");Pkg.add("JuMP");Pkg.clone("https://github.com/Roger-luo/QuSAT.jl");Pkg.clone("https://github.com/JuliaQuantum/QuBase.jl");Pkg.add("Ipopt"); Pkg.build("AdiaComput"); Pkg.test("AdiaComput"; coverage=true)'
