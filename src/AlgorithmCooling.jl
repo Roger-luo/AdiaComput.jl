@@ -1,4 +1,4 @@
-export DemonCooling,cool!
+export DemonCooling,cool!,heat!,trotter,propagate
 
 immutable DemonCooling <: QuDynamics.QuPropagatorMethod
     t::Real
@@ -23,6 +23,8 @@ function DemonCooling(H::AbstractMatrix)
     @constraint(m, -π/2<=γ-maxEigen*t<=π/2)
     status = solve(m)
 
+    @show getvalue(t)
+    @show getvalue(γ)
     DemonCooling(getvalue(t),getvalue(γ))
 end
 
@@ -33,19 +35,19 @@ end
 
 
 function propagate(prob::DemonCooling, eq::AQCShrodingerEq, t, current_t, current_qustate)
-    dt = t - current_t
-    dims = size(current_qustate)
-
-    s = current_t/eq.T
+    s = eq.t/eq.T
 
     # Use trotter expansion to simulate experimental implementation
     # P = 3 recommended!
-    U = trotter(-im*t*(1-s)*coeffs(eq.HB),
-                    -im*t*s*coeffs(eq.HP),3)
+    U = trotter(-im*prob.t*(1-s)*coeffs(eq.HB),
+                    -im*prob.t*s*coeffs(eq.HP),3)
+
+    # @show "pass"
+    #
+    # U =expm((-im*((1-s)*coeffs(eq.HB)+s*coeffs(eq.HP))*prob.t)|>full)
 
     p,next_state = cooling!(current_qustate,U,prob.t,prob.gamma)
     eq.p *= p
-    CQST = QuBase.similar_type(current_qustate)
     return next_state
 end
 
@@ -53,11 +55,11 @@ end
 function cooling!(state::AbstractQuVector,U::AbstractMatrix,t::Real,gamma::Real)
     dice = rand()
     if dice <= 0.5*(1+sin(gamma))
-        println("heating")
+        # println("heating")
         heat!(state,U,t,gamma)
         return 0.5*(1+sin(gamma)),state
     else
-        println("cooling")
+        # println("cooling")
         cool!(state,U,t,gamma)
         return 0.5*(1-sin(gamma)),state
     end
@@ -65,14 +67,14 @@ end
 
 function heat!(state::AbstractQuVector,U::AbstractMatrix,t::Real,gamma::Real)
     next_state = 0.5*( coeffs(state)+im*exp(im*gamma)*U*coeffs(state) ) |> Base.normalize!
-    CQST = QuBase.similar_type(state)
-    return CQST(next_state,bases(state))
+    state.coeffs = next_state
+    return state
 end
 
 function cool!(state::AbstractQuVector,U::AbstractMatrix,t::Real,gamma::Real)
     next_state = 0.5*( coeffs(state)-im*exp(im*gamma)*U*coeffs(state) ) |> Base.normalize!
-    CQST = QuBase.similar_type(state)
-    return CQST(next_state,rawbases(state))
+    state.coeffs = next_state
+    return state
 end
 
 function set_cooling_parameters(HB::AbstractMatrix,BP::AbstractMatrix,s::Real)

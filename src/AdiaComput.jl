@@ -4,7 +4,7 @@ using QuComputStates,QuDynamics,JuMP,QuSAT,QuBase,Ipopt
 import Base: |>
 import QuDynamics: QuStateEvolution,operator,propagate
 import QuBase: AbstractQuMatrix,AbstractQuVector,similar_type
-export AQC,bHamiltonian,pHamiltonian,|>
+export AQC,bHamiltonian,pHamiltonian,Hamiltonian,|>,operator
 
 include("Hamiltonian.jl")
 include("AQCShrodingerEq.jl")
@@ -34,8 +34,12 @@ AQC{H<:AbstractQuMatrix}(HP::H,n::Int;method = QuODE45(),dt = 1e-2, maxtime = 1.
 # modified timeline
 AQC{H<:AbstractQuMatrix}(HP::H,n::Int,tlist;method = QuODE45(), maxtime = 1.0) = AQC{n,H}(HP,tlist,maxtime, method)
 
+
+# Hamiltonian accessor
 bHamiltonian(aqc::AQC) = aqc.eq.HB
 pHamiltonian(aqc::AQC) = aqc.eq.HP
+
+Hamiltonian(aqc::AQC,t) = operator(aqc.eq,t)
 
 function (|>)(tlist::Range,aqc::AQC)
     aqc.tlist = tlist
