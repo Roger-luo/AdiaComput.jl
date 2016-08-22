@@ -7,7 +7,7 @@ julia:
   - release
   - nightly
 notifications:
-  email: false
+  email: hiroger@qq.com
 
  sudo: false
  addons:
