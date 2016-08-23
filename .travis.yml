@@ -1,23 +1,24 @@
-# Documentation: http://docs.travis-ci.com/user/languages/julia/
 language: julia
 os:
-  - linux
-  # - osx
+    - linux
+    - osx
 julia:
-  - release
-  - nightly
+    - release
+    - nightly
 notifications:
-  email: hiroger@qq.com
+    email: false
 
- sudo: false
  addons:
      apt_packages:
          - gfortran
-# uncomment the following lines to override the default test script
-script:
- - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
- - julia -e 'Pkg.clone(pwd());Pkg.clone("https://github.com/Roger-luo/QuComputStates.jl"); Pkg.clone("https://github.com/JuliaQuantum/QuDynamics.jl");Pkg.add("JuMP");Pkg.clone("https://github.com/Roger-luo/QuSAT.jl");Pkg.clone("https://github.com/JuliaQuantum/QuBase.jl");Pkg.add("Ipopt"); Pkg.build("AdiaComput"); Pkg.test("AdiaComput"; coverage=true)'
 
-branches:
-    only:
-        - master
+script:
+    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+    - julia -e 'Pkg.clone("https://github.com/JuliaQuantum/QuBase.jl.git")';
+    - julia -e 'Pkg.clone("https://github.com/Roger-luo/QuComputStates.jl")';
+    - julia -e 'Pkg.clone("https://github.com/marcusps/ExpmV.jl.git")';
+    - julia -e 'Pkg.clone("https://github.com/acroy/Expokit.jl.git")';
+    - julia -e 'Pkg.clone("https://github.com/JuliaQuantum/QuDynamics.jl")';
+    - julia -e 'Pkg.clone("https://github.com/Roger-luo/QuSAT.jl")';
+    - julia -e 'Pkg.clone(pwd()); Pkg.build("AdiaComput"); Pkg.test("AdiaComput")';
+    - julia --code-coverage=user -e 'include("test/runtests.jl")';
