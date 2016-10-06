@@ -41,13 +41,22 @@ function aqc_test(n,div;dt=1e-2)
     return p/100
 end
 
-aqc_test(4,(0.1,0.2))
+
+# n=4
+# ins,ans = generate(n)
+# pH = QuArray(pHamiltonian(ins,n),(comput_basis(n),comput_basis(n)))
+# aqc = AQC(pH,n;maxtime=1,method=QuExpokit())
+# for (t,psi) in aqc end
+# @show norm(aqc.state[ans[1]+1])^2
+
+
+@show aqc_test(4,(0.8,0.9))
 
 # res = Float64[]
 # for i = 0.1:0.1:0.8
 #     push!(res,aqc_test(4,(i,i+0.1)))
 # end
-
+#
 # using PyPlot
 #
 # plot(res)

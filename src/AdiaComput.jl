@@ -1,5 +1,5 @@
 module AdiaComput
-using QuComputStates,QuDynamics,JuMP,QuSAT,QuBase,Ipopt
+using QuComputStates,QuDynamics,JuMP,QuSAT,QuBase,Ipopt, ExpmV, Expokit
 
 import Base: |>
 import QuDynamics: QuStateEvolution,operator,propagate
